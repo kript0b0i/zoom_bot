@@ -12,6 +12,7 @@ from datetime import datetime
 import webbrowser
 import pyperclip
 import Webhook
+from sys import platform
 
 #keyboard = Controller()
 
@@ -53,15 +54,26 @@ import Webhook
     #         print('no sound detected...trying again')
     # return True
 #def zoomAccount(Username, Password):
+def detectOS():
+    if platform == "darwin":
+        return platform
+    elif platform == "win32":
+        return platform
+    #return platform
 
-def OpenZoom():
-    OpenZoom = os.getenv('AppData')
-    ZoomLocation = '\\Zoom\\bin\\Zoom.exe'
-    OpenZoom = OpenZoom + ZoomLocation
-    if(path.exists(OpenZoom)):
-        os.startfile(OpenZoom)
-    else:
-        print("You might not have zoom installed on your computer")
+def OpenZoom(GetOS):
+    if GetOS == "darwin":
+        os.System("open /Applications/Zoom.app")
+    elif GetOS == "win32":
+        OpenZoom = os.getenv('AppData')
+        ZoomLocation = '\\Zoom\\bin\\Zoom.exe'
+        OpenZoom = OpenZoom + ZoomLocation
+        if(path.exists(OpenZoom)):
+            os.startfile(OpenZoom)
+        else:
+            print("You might not have zoom installed on your computer")
+
+
 def createDB():
     conn = sqlite3.connect('Attend_Class.db')
     c = conn.cursor()
@@ -214,7 +226,7 @@ def sched():
 
 def joinclass(class_name,class_link,class_passcode, start_time, end_time):
     print('Opening Zoom...')
-    OpenZoom()
+    OpenZoom(detectOS())
     time.sleep(5)
     classStatus = False
     time.sleep(5)
@@ -273,7 +285,7 @@ def Title():
 if __name__ == "__main__":
     try:
         while(True):
-             # break
+            #break
             cleanConsole()
             #print (os.getcwd())
             #OpenZoom()
@@ -282,7 +294,6 @@ if __name__ == "__main__":
             if(DB_exists()):
                 op = int(input(("1. Modify\n2. View Database\n3. Remove Database\n4. Start Bot\n5. Exit\nEnter option : ")))
             else:
-                #print('PLEASE MAKE SURE WHEN YOU ARE CREATING THE DATABASE FOR THE ALL THE INFORMATION IS CORRET')
                 op = int(input(("1. Create Database\n2. View Database\n3. Remove Database\n4. Start Bot\n5. Exit\nEnter option : ")))
 
             if (op == 1):
@@ -295,11 +306,6 @@ if __name__ == "__main__":
                 sched()
             if(op==5):
                 break;
-            if(not(op==1) or not(op==2) or not(op==3) or not(op==4) or not(op==5)):
-                print('is not valid a valid option, please try again')
-                time.sleep(3)
-
-
 
     except KeyboardInterrupt:
         print("Closing program..")
