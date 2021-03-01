@@ -168,8 +168,12 @@ def view_DB():
         time.sleep(2)
         #cleanConsole()
 
-def cleanConsole():
-    clear = lambda: os.system('cls')
+def cleanConsole(getOS):
+    if getOS == "Darwin":
+        clear = lambda: os.system('clear')
+
+    elif getOS == "win32":
+        clear = lambda: os.system('cls')
     clear()
 
 
@@ -286,7 +290,7 @@ if __name__ == "__main__":
     try:
         while(True):
             #break
-            cleanConsole()
+            cleanConsole(detectOS())
             #print (os.getcwd())
             #OpenZoom()
             Title()
