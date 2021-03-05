@@ -1,5 +1,5 @@
 import time
-import SpeechRecognition as sr
+import SpeechRecognition
 import sqlite3
 import re
 import schedule
@@ -193,22 +193,22 @@ def sched():
             if day.lower()=="monday":
                 schedule.every().monday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
-            if day.lower()=="tuesday":
+            elif day.lower()=="tuesday":
                 schedule.every().tuesday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
-            if day.lower()=="wednesday":
+            elif day.lower()=="wednesday":
                 schedule.every().wednesday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
-            if day.lower()=="thursday":
+            elif day.lower()=="thursday":
                 schedule.every().thursday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
-            if day.lower()=="friday":
+            elif day.lower()=="friday":
                 schedule.every().friday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
-            if day.lower()=="saturday":
+            elif day.lower()=="saturday":
                 schedule.every().saturday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
-            if day.lower()=="sunday":
+            elif day.lower()=="sunday":
                 schedule.every().sunday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
 
