@@ -1,5 +1,4 @@
 import time
-import speech_recognition as sr
 import sqlite3
 import re
 import schedule
@@ -14,66 +13,12 @@ import pyperclip
 import Webhook
 from sys import platform
 
-#keyboard = Controller()
-
-#listener = sr.Recognizer()
-#listener.dynamic_energy_threshold = True
-# listener.energy_threshold=40000
-#listener.pause_threshold = 0.8
-#40000
-# print(sr.Microphone.list_microphone_names())
-# for index, name in enumerate(sr.Microphone.list_microphone_names()):
-#     print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, name))
-
-
-# def logic():
-    # waitForCamera = True
-    # while waitForCamera:
-    #     try:
-    #         with sr.Microphone() as source:
-    #             listener.adjust_for_ambient_noise(source, duration=0.2)
-    #             print('listening...')
-    #             # webhook = Webhook.from_url(
-    #             #     "https://discord.com/api/webhooks/806264854133342238/iS2kNDCwCko32tivh4bYpsKlwqdWkLwBNbCo6HZ3kWSZoz_0lbWEQvpIKfXL_0_9a3QL",
-    #             #     adapter=RequestsWebhookAdapter())
-    #             # webhook.send("waiting to turn camera")
-    #             voice = listener.listen(source, phrase_time_limit=5)
-    #             Gettext = listener.recognize_google(voice)#change language  language='es-US'
-    #             Gettext = Gettext.lower()
-    #             print("converting voice to text: " + Gettext)
-    #             if (Gettext.find("Luis") != -1 or Gettext.find("lewis") != -1 or Gettext.find("louis") != -1 or Gettext.find("good morning") != -1):
-    #             # if 'Louis' in Gettext:
-    #                 print("KeyWordDetected " +Gettext)
-    #
-    #                 webhook = Webhook.from_url(
-    #                     "https://discord.com/api/webhooks/806264854133342238/iS2kNDCwCko32tivh4bYpsKlwqdWkLwBNbCo6HZ3kWSZoz_0lbWEQvpIKfXL_0_9a3QL",
-    #                     adapter=RequestsWebhookAdapter())
-    #                 webhook.send("Prof. Said: " + Gettext)
-    #                 break
-    #     except:
-    #         print('no sound detected...trying again')
-    # return True
-#def zoomAccount(Username, Password):
 def detectOS():
     if platform == "darwin":
         return platform
     elif platform == "win32":
         return platform
     #return platform
-
-def OpenZoom(GetOS):
-    if GetOS == "darwin":
-        os.System("open /Applications/Zoom.app")
-    elif GetOS == "win32":
-        OpenZoom = os.getenv('AppData')
-        ZoomLocation = '\\Zoom\\bin\\Zoom.exe'
-        OpenZoom = OpenZoom + ZoomLocation
-        if(path.exists(OpenZoom)):
-            os.startfile(OpenZoom)
-        else:
-            print("You might not have zoom installed on your computer")
-
-
 def createDB():
     conn = sqlite3.connect('Attend_Class.db')
     c = conn.cursor()
@@ -114,8 +59,7 @@ def validate_input(regex,inp):
     return True
 
 def add_DB():
-    if(not(path.exists("Attend_Class.db"))):
-            createDB()
+    print('')
     op = int(input("1. Add class\n2. Done adding\nEnter option : "))
     class_passcode='no_passcode'
     while(op==1):
@@ -139,6 +83,8 @@ def add_DB():
             print("Invalid input, try again")
             end_time = input("Enter day (Monday/Tuesday/Wednesday..etc) : ")
 
+        if(not(path.exists("Attend_Class.db"))):
+            createDB()
 
         conn = sqlite3.connect('Attend_Class.db')
         c=conn.cursor()
@@ -160,7 +106,7 @@ def view_DB():
         for row in c.execute('SELECT * FROM Attend_Class'):
             print(row)
         conn.close()
-        time.sleep(5)
+        time.sleep(3)
     else:
         print(" ")
         print("No DATABASE to display")
@@ -176,6 +122,18 @@ def cleanConsole(getOS):
         clear = lambda: os.system('cls')
     clear()
 
+
+def OpenZoom(GetOS):
+    if GetOS == "darwin":
+        os.System("open /Applications/Zoom.app")
+    elif GetOS == "win32":
+        OpenZoom = os.getenv('AppData')
+        ZoomLocation = '\\Zoom\\bin\\Zoom.exe'
+        OpenZoom = OpenZoom + ZoomLocation
+        if(path.exists(OpenZoom)):
+            os.startfile(OpenZoom)
+        else:
+            print("You might not have zoom installed on your computer")
 
 def sched():
     if(path.exists("Attend_Class.db")):
@@ -193,22 +151,22 @@ def sched():
             if day.lower()=="monday":
                 schedule.every().monday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
-            if day.lower()=="tuesday":
+            elif day.lower()=="tuesday":
                 schedule.every().tuesday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
-            if day.lower()=="wednesday":
+            elif day.lower()=="wednesday":
                 schedule.every().wednesday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
-            if day.lower()=="thursday":
+            elif day.lower()=="thursday":
                 schedule.every().thursday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
-            if day.lower()=="friday":
+            elif day.lower()=="friday":
                 schedule.every().friday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
-            if day.lower()=="saturday":
+            elif day.lower()=="saturday":
                 schedule.every().saturday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
-            if day.lower()=="sunday":
+            elif day.lower()=="sunday":
                 schedule.every().sunday.at(start_time).do(joinclass,name,class_link,class_passcode,start_time,end_time)
                 print("Scheduled class '%s' on %s at %s"%(name,day,start_time))
 
@@ -227,7 +185,8 @@ def sched():
         #cleanConsole()
 
 
-
+def Screenshot():
+    getScreen = pyautogui.screenshot('zoom.png')
 def joinclass(class_name,class_link,class_passcode, start_time, end_time):
     print('Opening Zoom...')
     OpenZoom(detectOS())
@@ -269,7 +228,9 @@ def joinclass(class_name,class_link,class_passcode, start_time, end_time):
     if check_if_waiting_room == None:
         print("in class!")
         classStatus = True
+        Screenshot()
         Webhook.class_status(class_name,classStatus, start_time, end_time)
+        os.remove('zoom.png')
 
 
     leave_class = datetime.strptime(end_time, '%H:%M')
@@ -289,10 +250,8 @@ def Title():
 if __name__ == "__main__":
     try:
         while(True):
-            #break
+           # break
             cleanConsole(detectOS())
-            #print (os.getcwd())
-            #OpenZoom()
             Title()
 
             if(DB_exists()):
