@@ -1,5 +1,5 @@
 import time
-import speech_recognition as sr
+import SpeechRecognition as sr
 import sqlite3
 import re
 import schedule
