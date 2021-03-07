@@ -21,17 +21,17 @@ Road map
 Concurrent task:<br>
 ### Hassan<br>
 Hassan would fork the current repo<br>
-Make a Travis CI account. <br>
-Setup a Travis Yaml file in the repo<br>
-Make it run some trivial unit test(check that print(‘hello world’) prints out hello world or something like that. ) in a separate file from luis’s files (test.py)<br>
+* Make a Travis CI account. <br>
+* Setup a Travis Yaml file in the repo<br>
+* Make it run some trivial unit test(check that print(‘hello world’) prints out hello world or something * like that. ) in a separate file from luis’s files (test.py)<br>
 
-Hassan if he has extra time can add a linter.  The PEP 8 standard is decent.
-Make sure to make the linter ignore the files luis worked on since those would throw a lot of errors.
-Make sure that your linter runs on the test.py file you create
+* Hassan if he has extra time can add a linter.  The PEP 8 standard is decent.
+* Make sure to make the linter ignore the files luis worked on since those would throw a lot of errors.
+* Make sure that your linter runs on the test.py file you create
 ### Luis
-Fix bugs by selecting option 1 on an empty db, and then selecting option 2.
-Setup way to record audio.
-Play certain audio
+* Fix bugs by selecting option 1 on an empty db, and then selecting option 2.
+* Setup way to record audio.<br>
+* Play certain audio<br>
 
 
 
