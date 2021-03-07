@@ -2,4 +2,4 @@ language: python
 python:
   - "3.8.2"
 script:
- - python unit_tests.py
+ - python tests.py
